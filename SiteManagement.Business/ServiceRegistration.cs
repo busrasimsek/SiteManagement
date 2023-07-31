@@ -13,6 +13,7 @@ namespace SiteManagement.Business
                          .Where(consumer => consumer.FullName != null && consumer.FullName.Contains("Handler") && consumer.IsClass)
                          .ToArray();
             services.AddMediatR(assembly);
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
         }
     }
 }
