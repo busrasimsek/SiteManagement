@@ -1,4 +1,5 @@
 using SiteManagement.Business;
+using SiteManagement.Data;
 using SiteManagement.Core.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddBusiness();
+builder.Services.AddData(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

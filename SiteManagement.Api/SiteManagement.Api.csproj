@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SiteManagement.Business\SiteManagement.Business.csproj" />
     <ProjectReference Include="..\SiteManagement.Core\SiteManagement.Core.csproj" />
+    <ProjectReference Include="..\SiteManagement.Data\SiteManagement.Data.csproj" />
   </ItemGroup>
 
 </Project>
