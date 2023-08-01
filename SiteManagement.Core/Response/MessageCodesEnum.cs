@@ -4,9 +4,7 @@
     {
         Error,
         UserCreatedError,
-        SifreUyumsuz,
         UserNotFoundError,
-        KayitBulunamadi
-
+        UserUpdatedError
     }
 }

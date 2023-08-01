@@ -22,7 +22,7 @@ namespace SiteManagement.Data
             {
                 x.UseNpgsql(connString, opt =>
                 {
-                   // opt.CommandTimeout(Convert.ToInt32(100));
+                    opt.CommandTimeout(Convert.ToInt32(100));
                 });
                 x.UseLazyLoadingProxies(false);
                 x.EnableSensitiveDataLogging();

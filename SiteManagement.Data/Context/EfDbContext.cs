@@ -13,8 +13,15 @@ namespace SiteManagement.Data.Context
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
 
+        DbSet<Apartment> Apartments { get; set; }
+        DbSet<Expense> Expenses { get; set; }
+        DbSet<ExpenseType> ExpenseTypes { get;set; }
+        DbSet<Home> Homes { get; set; }
+        DbSet<Message> Messages { get; set; }
+        DbSet<Residents> Residentss { get; set; }
         DbSet<User> Users { get; set; }
-
+        DbSet<UserRole> UserRoles { get; set; }
+        DbSet<Vehicle> Vehicles { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
