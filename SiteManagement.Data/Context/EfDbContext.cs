@@ -18,7 +18,7 @@ namespace SiteManagement.Data.Context
         DbSet<ExpenseType> ExpenseTypes { get;set; }
         DbSet<Home> Homes { get; set; }
         DbSet<Message> Messages { get; set; }
-        DbSet<Residents> Residentss { get; set; }
+        DbSet<Resident> Residents { get; set; }
         DbSet<User> Users { get; set; }
         DbSet<UserRole> UserRoles { get; set; }
         DbSet<Vehicle> Vehicles { get; set; }

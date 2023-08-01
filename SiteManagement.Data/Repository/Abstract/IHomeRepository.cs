@@ -3,7 +3,7 @@ using SiteManagement.Data.Entity;
 
 namespace SiteManagement.Data.Repository.Abstract
 {
-    public interface IUserRepository : IRepository<User>
+    public interface IHomeRepository : IRepository<Home>
     {
     }
 }

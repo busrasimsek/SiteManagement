@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SiteManagement.Data.Entity
 {
-    public class Residents : BaseEntity //Daire sakinleri
+    public class Resident : BaseEntity //Daire sakinleri
     {
         public string Firstname { get; set; }
         public string Lastname { get; set; }
