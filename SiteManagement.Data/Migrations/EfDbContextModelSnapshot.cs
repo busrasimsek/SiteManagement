@@ -123,6 +123,9 @@ namespace SiteManagement.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("ApartmentId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp without time zone");
 
@@ -143,6 +146,8 @@ namespace SiteManagement.Data.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApartmentId");
 
                     b.ToTable("ExpenseTypes");
                 });
@@ -244,7 +249,7 @@ namespace SiteManagement.Data.Migrations
                     b.ToTable("Messages");
                 });
 
-            modelBuilder.Entity("SiteManagement.Data.Entity.Residents", b =>
+            modelBuilder.Entity("SiteManagement.Data.Entity.Resident", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -259,7 +264,6 @@ namespace SiteManagement.Data.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Firstname")
@@ -280,7 +284,6 @@ namespace SiteManagement.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool?>("Sex")
@@ -293,7 +296,7 @@ namespace SiteManagement.Data.Migrations
 
                     b.HasIndex("HomeId");
 
-                    b.ToTable("Residentss");
+                    b.ToTable("Residents");
                 });
 
             modelBuilder.Entity("SiteManagement.Data.Entity.User", b =>
@@ -433,6 +436,17 @@ namespace SiteManagement.Data.Migrations
                     b.Navigation("Home");
                 });
 
+            modelBuilder.Entity("SiteManagement.Data.Entity.ExpenseType", b =>
+                {
+                    b.HasOne("SiteManagement.Data.Entity.Apartment", "Apartment")
+                        .WithMany()
+                        .HasForeignKey("ApartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Apartment");
+                });
+
             modelBuilder.Entity("SiteManagement.Data.Entity.Home", b =>
                 {
                     b.HasOne("SiteManagement.Data.Entity.Apartment", "Apartment")
@@ -471,7 +485,7 @@ namespace SiteManagement.Data.Migrations
                     b.Navigation("SourceUser");
                 });
 
-            modelBuilder.Entity("SiteManagement.Data.Entity.Residents", b =>
+            modelBuilder.Entity("SiteManagement.Data.Entity.Resident", b =>
                 {
                     b.HasOne("SiteManagement.Data.Entity.Home", "Home")
                         .WithMany()

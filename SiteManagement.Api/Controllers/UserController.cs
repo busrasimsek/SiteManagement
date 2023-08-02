@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using SiteManagement.Business.Future.Commands.User.Insert;
-using SiteManagement.Business.Future.Commands.User.Update;
-using SiteManagement.Business.Future.Queries.User.GetAll;
+using SiteManagement.Business.Services.Commands.User.Insert;
+using SiteManagement.Business.Services.Commands.User.Update;
+using SiteManagement.Business.Services.Queries.User.GetAll;
 using SiteManagement.Core.Controller;
 
 namespace SiteManagement.Api.Controllers
@@ -18,7 +18,8 @@ namespace SiteManagement.Api.Controllers
             => Handle(await _mediator.Send(requestModel));
 
         [HttpPost]
-        public async Task<IActionResult> GetAll([FromBody] InsertUserCommandRequestModel requestModel)
+        public async Task<IActionResult> Insert
+            ([FromBody] InsertUserCommandRequestModel requestModel)
             => Handle(await _mediator.Send(requestModel));
 
         [HttpPut("{id}")]

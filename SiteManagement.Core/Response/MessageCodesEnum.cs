@@ -5,6 +5,7 @@
         Error,
         UserCreatedError,
         UserNotFoundError,
-        UserUpdatedError
+        UserUpdatedError,
+        NotFoundIdError,
     }
 }
