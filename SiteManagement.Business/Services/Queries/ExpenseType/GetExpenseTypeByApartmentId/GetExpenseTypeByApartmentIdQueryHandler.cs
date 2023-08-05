@@ -20,10 +20,6 @@ namespace SiteManagement.Business.Services.Queries.ExpenseType.GetExpenseTypeByA
         {
             var response = new ResponseItemManager();
             var data = await _unitOfWork.Repository<IExpenseTypeRepository>().Query().Where(x => x.ApartmentId == request.ApartmentId).ToListAsync();
-            if (data == null)
-            {
-                return response.Error<List<GetExpenseTypeByApartmentIdQueryResponseModel>>(MessageCodesEnum.NotFoundIdError);
-            }
             return response.Ok(_mapper.Map<List<GetExpenseTypeByApartmentIdQueryResponseModel>>(data));
         }
     }

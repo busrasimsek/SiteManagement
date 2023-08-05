@@ -21,10 +21,6 @@ namespace SiteManagement.Business.Services.Queries.Expense.GetByIGetExpenseByHom
         {
             var response = new ResponseItemManager();
             var data = await _unitOfWork.Repository<IExpenseRepository>().Query().Where(x => x.HomeId == request.HomeId).ToListAsync();
-            if (data == null)
-            {
-                return response.Error<List<GetExpenseByHomeIdQueryResponseModel>>(MessageCodesEnum.NotFoundIdError);
-            }
             return response.Ok(_mapper.Map<List<GetExpenseByHomeIdQueryResponseModel>>(data));
         }
     }

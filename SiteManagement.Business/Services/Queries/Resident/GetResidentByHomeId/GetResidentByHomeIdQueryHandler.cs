@@ -21,10 +21,6 @@ namespace SiteManagement.Business.Services.Queries.Resident.GetResidentByHomeId
         {
             var response = new ResponseItemManager();
             var data = await _unitOfWork.Repository<IResidentRepository>().Query().Where(x => x.HomeId == request.HomeId).ToListAsync();
-            if (data == null)
-            {
-                return response.Error<List<GetResidentByHomeIdQueryResponseModel>>(MessageCodesEnum.NotFoundIdError);
-            }
             return response.Ok(_mapper.Map<List<GetResidentByHomeIdQueryResponseModel>>(data));
         }
     }

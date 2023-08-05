@@ -1,12 +1,6 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using SiteManagement.Core.Response;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace SiteManagement.Business.Services.Commands.User.Update
 {

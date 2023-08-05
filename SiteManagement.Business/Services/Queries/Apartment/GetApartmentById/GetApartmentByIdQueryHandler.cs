@@ -5,7 +5,7 @@ using SiteManagement.Core.Response;
 using SiteManagement.Data.Core.UnitOfWork.Concrete;
 using SiteManagement.Data.Repository.Abstract;
 
-namespace SiteManagement.Business.Services.Queries.Apartment.GetById
+namespace SiteManagement.Business.Services.Queries.Apartment.GetApartmentById
 {
     public class GetApartmentByIdQueryHandler : IRequestHandler<GetApartmentByIdQueryRequestModel, ResponseItem<GetApartmentByIdQueryResponseModel>>
     {

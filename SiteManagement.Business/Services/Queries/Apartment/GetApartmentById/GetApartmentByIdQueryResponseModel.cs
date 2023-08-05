@@ -1,4 +1,4 @@
-﻿namespace SiteManagement.Business.Services.Queries.Apartment.GetById
+﻿namespace SiteManagement.Business.Services.Queries.Apartment.GetApartmentById
 {
     public class GetApartmentByIdQueryResponseModel
     {

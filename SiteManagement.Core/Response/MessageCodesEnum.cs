@@ -7,6 +7,7 @@
         UserNotFoundError,
         UserUpdatedError,
         NotFoundIdError,
-        WrongPasswordError
+        WrongPasswordError,
+        UpdatedError
     }
 }
