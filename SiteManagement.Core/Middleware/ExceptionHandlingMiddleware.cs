@@ -32,7 +32,7 @@ namespace SiteManagement.Core.Middleware
 
                 // Create an error response object
                 var errorResponse = response.Error(MessageCodesEnum.Error, ex.Message);
-                
+
                 // Serialize the error response to JSON
                 var jsonResponse = JsonConvert.SerializeObject(errorResponse);
 
@@ -40,6 +40,26 @@ namespace SiteManagement.Core.Middleware
                 await context.Response.WriteAsync(jsonResponse);
             }
         }
+        //public async Task InvokeAsync(HttpContext httpContext)
+        //{
+        //    try
+        //    {
+        //        await _next(httpContext);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        await HandleExceptionAsync(httpContext, ex);
+        //    }
+        //}
+
+        //private static Task HandleExceptionAsync(HttpContext httpContext, Exception ex)
+        //{
+
+        //    httpContext.Response.ContentType = "application/json";
+        //    httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+        //    var now = DateTime.UtcNow;
+        //    return httpContext.Response.WriteAsync(BaseResponseModel.BadRequest(ex.Message, httpContext.TraceIdentifier).ToString());
+        //}
     }
 
 }

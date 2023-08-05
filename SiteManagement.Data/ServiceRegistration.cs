@@ -5,11 +5,6 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using SiteManagement.Data.Context;
 using SiteManagement.Data.Core.UnitOfWork.Abstract;
 using SiteManagement.Data.Core.UnitOfWork.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SiteManagement.Data
 {

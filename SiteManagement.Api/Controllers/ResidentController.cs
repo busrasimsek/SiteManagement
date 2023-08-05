@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SiteManagement.Business.Services.Commands.Resident.Insert;
-using SiteManagement.Business.Services.Queries.Resident.GetById;
+using SiteManagement.Business.Services.Queries.Resident.GetResidentByHomeId;
 using SiteManagement.Core.Controller;
 
 namespace SiteManagement.Api.Controllers
@@ -14,7 +14,7 @@ namespace SiteManagement.Api.Controllers
         }
 
         [HttpGet("GetByHomeId")]
-        public async Task<IActionResult> GetById([FromQuery] GetResidentByHomeIdQueryRequestModel requestModel)
+        public async Task<IActionResult> GetResidentByHomeId([FromQuery] GetResidentByHomeIdQueryRequestModel requestModel)
          => Handle(await _mediator.Send(requestModel));
 
         [HttpPost]

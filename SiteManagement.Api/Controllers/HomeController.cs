@@ -1,8 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SiteManagement.Business.Services.Commands.Home.Insert;
-using SiteManagement.Business.Services.Queries.Home.GetAll;
-using SiteManagement.Business.Services.Queries.Home.GetById;
+using SiteManagement.Business.Services.Queries.Home.GetHomeByApartmentId;
 using SiteManagement.Core.Controller;
 
 namespace SiteManagement.Api.Controllers
@@ -13,12 +12,12 @@ namespace SiteManagement.Api.Controllers
         {
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] GetAllHomeQueryRequestModel requestModel)
-            => Handle(await _mediator.Send(requestModel));
+        //[HttpGet]
+        //public async Task<IActionResult> GetAll([FromQuery] GetAllHomeQueryRequestModel requestModel)
+        //    => Handle(await _mediator.Send(requestModel));
 
         [HttpGet("GetByApartmentId")]
-        public async Task<IActionResult> GetById([FromQuery] GetHomeByApartmentIdQueryRequestModel requestModel)
+        public async Task<IActionResult> GetHomeByApartmentId([FromQuery] GetHomeByApartmentIdQueryRequestModel requestModel)
             => Handle(await _mediator.Send(requestModel));
 
         [HttpPost]
