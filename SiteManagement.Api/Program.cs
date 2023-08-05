@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using SiteManagement.Business;
 using SiteManagement.Core;
 using SiteManagement.Core.Middleware;
@@ -21,7 +22,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 var configuration = builder.Configuration;
-
+builder.Host.UseSerilog((ctx, lc) => lc
+    .WriteTo.Seq("http://localhost:5341")
+    .MinimumLevel.Information());
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

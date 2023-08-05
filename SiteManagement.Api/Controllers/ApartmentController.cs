@@ -9,7 +9,6 @@ using System.Security.Claims;
 
 namespace SiteManagement.Api.Controllers
 {
-    //[Authorize(AuthenticationSchemes = "Manager")]
     public class ApartmentController : BaseController
     {
         public ApartmentController(IMediator mediator) : base(mediator)
@@ -18,7 +17,6 @@ namespace SiteManagement.Api.Controllers
 
 
         [HttpGet("{id}")]
-        [Authorize( )]
         public async Task<IActionResult> GetById([FromRoute] int id)
             => Handle(await _mediator.Send(new GetApartmentByIdQueryRequestModel { Id = id }));
 
