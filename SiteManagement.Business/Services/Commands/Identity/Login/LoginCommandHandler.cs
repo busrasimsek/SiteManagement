@@ -2,6 +2,7 @@
 using Castle.Core.Configuration;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using SiteManagement.Core.Helper;
 using SiteManagement.Core.Identity;
 using SiteManagement.Core.Response;
 using SiteManagement.Core.Response.TokenResponse;
@@ -32,17 +33,18 @@ namespace SiteManagement.Business.Services.Commands.Identity.Login
             {
                 return response.Error<Token>(MessageCodesEnum.UserNotFoundError);
             }
-            if(user.Password != request.Password)
+            var salt = user.PasswordSalt;
+            var hash = HashingHelper.CreatePasswordHash(request.Password, salt);
+            if(user.PasswordHash != hash)
             {
                 return response.Error<Token>(MessageCodesEnum.WrongPasswordError);
+
             }
 
-            //string secretKey = "a-secret-key-with-at-least-32-characters123";
-            //var tokenService = new TokenService(secretKey);
             var role = await _unitOfWork.Repository<IUserRoleRepository>().Query().FirstOrDefaultAsync(x => x.Id == user.UserRoleId);
-            var token = _tokenService.GenerateToken(900,user.Username, role.Type);
+            var token = _tokenService.GenerateToken(user.Username, role.Type);
 
-            return response.Ok(token);
+            return response.Ok(new Token { AccessToken = token});
         }
     }
 }

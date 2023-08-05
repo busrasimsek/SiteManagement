@@ -21,10 +21,6 @@ namespace SiteManagement.Business.Services.Queries.Apartment.GetById
         {
             var response = new ResponseItemManager();
             var data = await _unitOfWork.Repository<IApartmentRepository>().Query().FirstOrDefaultAsync(x => x.Id == request.Id);
-            if (data == null)
-            {
-                return response.Error<GetApartmentByIdQueryResponseModel>(MessageCodesEnum.NotFoundIdError);
-            }
             return response.Ok(_mapper.Map<GetApartmentByIdQueryResponseModel>(data));
         }
     }

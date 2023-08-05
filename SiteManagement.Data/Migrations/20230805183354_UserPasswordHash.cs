@@ -7,29 +7,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace SiteManagement.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Database : Migration
+    public partial class UserPasswordHash : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "ExpenseTypes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    TypeName = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    UpdatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ExpenseTypes", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "UserRoles",
                 columns: table => new
@@ -54,9 +36,10 @@ namespace SiteManagement.Data.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Username = table.Column<string>(type: "text", nullable: false),
-                    Password = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
                     UserRoleId = table.Column<int>(type: "integer", nullable: false),
+                    PasswordHash = table.Column<string>(type: "text", nullable: false),
+                    PasswordSalt = table.Column<string>(type: "text", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     UpdatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
@@ -159,6 +142,31 @@ namespace SiteManagement.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ExpenseTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    TypeName = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    ApartmentId = table.Column<int>(type: "integer", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExpenseTypes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ExpenseTypes_Apartments_ApartmentId",
+                        column: x => x.ApartmentId,
+                        principalTable: "Apartments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Homes",
                 columns: table => new
                 {
@@ -228,15 +236,15 @@ namespace SiteManagement.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Residentss",
+                name: "Residents",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Firstname = table.Column<string>(type: "text", nullable: false),
                     Lastname = table.Column<string>(type: "text", nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false),
-                    Phone = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: true),
+                    Phone = table.Column<string>(type: "text", nullable: true),
                     Age = table.Column<int>(type: "integer", nullable: true),
                     Sex = table.Column<bool>(type: "boolean", nullable: true),
                     HomeId = table.Column<int>(type: "integer", nullable: false),
@@ -247,9 +255,9 @@ namespace SiteManagement.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Residentss", x => x.Id);
+                    table.PrimaryKey("PK_Residents", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Residentss_Homes_HomeId",
+                        name: "FK_Residents_Homes_HomeId",
                         column: x => x.HomeId,
                         principalTable: "Homes",
                         principalColumn: "Id",
@@ -272,6 +280,11 @@ namespace SiteManagement.Data.Migrations
                 column: "HomeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ExpenseTypes_ApartmentId",
+                table: "ExpenseTypes",
+                column: "ApartmentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Homes_ApartmentId",
                 table: "Homes",
                 column: "ApartmentId");
@@ -292,8 +305,8 @@ namespace SiteManagement.Data.Migrations
                 column: "SourceUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Residentss_HomeId",
-                table: "Residentss",
+                name: "IX_Residents_HomeId",
+                table: "Residents",
                 column: "HomeId");
 
             migrationBuilder.CreateIndex(
@@ -317,7 +330,7 @@ namespace SiteManagement.Data.Migrations
                 name: "Messages");
 
             migrationBuilder.DropTable(
-                name: "Residentss");
+                name: "Residents");
 
             migrationBuilder.DropTable(
                 name: "Vehicles");

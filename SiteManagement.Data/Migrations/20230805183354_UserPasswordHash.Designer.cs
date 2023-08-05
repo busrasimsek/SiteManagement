@@ -12,8 +12,8 @@ using SiteManagement.Data.Context;
 namespace SiteManagement.Data.Migrations
 {
     [DbContext(typeof(EfDbContext))]
-    [Migration("20230802113210_mig1")]
-    partial class mig1
+    [Migration("20230805183354_UserPasswordHash")]
+    partial class UserPasswordHash
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -126,6 +126,9 @@ namespace SiteManagement.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("ApartmentId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp without time zone");
 
@@ -146,6 +149,8 @@ namespace SiteManagement.Data.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApartmentId");
 
                     b.ToTable("ExpenseTypes");
                 });
@@ -262,7 +267,6 @@ namespace SiteManagement.Data.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Firstname")
@@ -283,7 +287,6 @@ namespace SiteManagement.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool?>("Sex")
@@ -320,7 +323,11 @@ namespace SiteManagement.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PasswordSalt")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -434,6 +441,17 @@ namespace SiteManagement.Data.Migrations
                     b.Navigation("ExpenseType");
 
                     b.Navigation("Home");
+                });
+
+            modelBuilder.Entity("SiteManagement.Data.Entity.ExpenseType", b =>
+                {
+                    b.HasOne("SiteManagement.Data.Entity.Apartment", "Apartment")
+                        .WithMany()
+                        .HasForeignKey("ApartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Apartment");
                 });
 
             modelBuilder.Entity("SiteManagement.Data.Entity.Home", b =>

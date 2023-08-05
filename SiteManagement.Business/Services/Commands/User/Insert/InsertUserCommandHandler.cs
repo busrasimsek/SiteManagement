@@ -23,9 +23,18 @@ namespace SiteManagement.Business.Services.Commands.User.Insert
         public async Task<ResponseItem> Handle(InsertUserCommandRequestModel request, CancellationToken cancellationToken)
         {
             var response = new ResponseItemManager();
-            var pass = PasswordGenerator.GeneratePassword(3, true, true, true, true);
-            var user = _mapper.Map<Data.Entity.User>(request);
-            user.Password = pass; // bu kullanıcının mailine gidecek.
+            var pass = PasswordGenerator.GeneratePassword(6, true, true, true, true);
+            var salt = HashingHelper.CreateSalt(6);
+            var hash = HashingHelper.CreatePasswordHash(pass, salt);
+
+            var user = new Data.Entity.User
+            {
+                Username = request.Username,
+                Email = request.Email,
+                PasswordHash = hash,
+                PasswordSalt = salt,
+                UserRoleId = request.UserRoleId
+            };
             _unitOfWork.OpenTransaction();
             _unitOfWork.Repository<IUserRepository>().Add(user);
 
@@ -39,7 +48,7 @@ namespace SiteManagement.Business.Services.Commands.User.Insert
                 MailTo = new List<string> { user.Email },
                 MailHeader = "Kullanıcı oluşturulmuştur.",
                 MailSubject = @$"Kullanıcı oluşturuldu",
-                MailBody = @$"Merhaba {request.Username}. Sisteme giriş yapmak için {pass} şifresini kullanabilirsiniz."
+                MailBody = @$"Merhaba <b>{request.Username}</b>. Sisteme giriş yapmak için  <b>'{pass}'</b> şifresini kullanabilirsiniz."
             });
             _unitOfWork.Commit();
             return response.Ok();

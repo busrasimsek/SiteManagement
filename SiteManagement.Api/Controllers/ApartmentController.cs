@@ -15,11 +15,12 @@ namespace SiteManagement.Api.Controllers
         {
         }
 
-
+        [Authorize(Roles = "User,Manager")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
             => Handle(await _mediator.Send(new GetApartmentByIdQueryRequestModel { Id = id }));
 
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         public async Task<IActionResult> Insert([FromBody] InsertApartmentCommandRequestModel requestModel)
           => Handle(await _mediator.Send(requestModel));
