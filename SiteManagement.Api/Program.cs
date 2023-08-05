@@ -13,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 //builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddCore();
+builder.Services.AddCore(builder.Configuration);
 builder.Services.AddBusiness();
 builder.Services.AddData(builder.Configuration);
 
