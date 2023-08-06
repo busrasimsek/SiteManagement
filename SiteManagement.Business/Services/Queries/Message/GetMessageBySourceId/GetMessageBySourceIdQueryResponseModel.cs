@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SiteManagement.Business.Services.Queries.Message.GetMessageBySourceId
+﻿namespace SiteManagement.Business.Services.Queries.Message.GetMessageBySourceId
 {
     public class GetMessageBySourceIdQueryResponseModel
     {

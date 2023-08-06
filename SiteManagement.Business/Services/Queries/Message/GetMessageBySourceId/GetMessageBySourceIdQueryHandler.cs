@@ -4,11 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using SiteManagement.Core.Response;
 using SiteManagement.Data.Core.UnitOfWork.Concrete;
 using SiteManagement.Data.Repository.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SiteManagement.Business.Services.Queries.Message.GetMessageBySourceId
 {

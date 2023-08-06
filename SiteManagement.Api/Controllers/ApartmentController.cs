@@ -14,9 +14,9 @@ namespace SiteManagement.Api.Controllers
         {
         }
 
-        //[Authorize(Roles = "User,Manager")]
+        [Authorize(Roles = "User,Manager")]
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById([FromRoute] int id)
+        public async Task<IActionResult> GetApartmentById([FromRoute] int id)
             => Handle(await _mediator.Send(new GetApartmentByIdQueryRequestModel { Id = id }));
 
         [Authorize(Roles = "Manager")]
@@ -25,8 +25,8 @@ namespace SiteManagement.Api.Controllers
             => Handle(await _mediator.Send(requestModel));
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateApartmentCommandRequestModel requestModel)
-        //=> Handle(await _mediator.Send(new UpdateApartmentCommandRequestModel { Id = id }));
         {
             requestModel.Id = id;
             return Handle(await _mediator.Send(requestModel)); ;

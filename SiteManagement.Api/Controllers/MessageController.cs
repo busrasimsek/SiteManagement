@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SiteManagement.Business.Services.Commands.Message.Insert;
 using SiteManagement.Business.Services.Commands.Message.SeenAndGetByDestionationId;
@@ -14,14 +15,17 @@ namespace SiteManagement.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "User,Manager")]
         public async Task<IActionResult> Insert([FromBody] InsertMessageCommandRequestModel requestModel)
           => Handle(await _mediator.Send(requestModel));
 
         [HttpGet]
+        [Authorize(Roles = "User,Manager")]
         public async Task<IActionResult> GetMessageBySourceId([FromQuery] GetMessageBySourceIdQueryRequestModel requestModel)
             => Handle(await _mediator.Send(requestModel));
 
         [HttpPost("SeenAndGetByDestinationMessage")]
+        [Authorize(Roles = "User,Manager")]
         public async Task<IActionResult> SeenAndGetByDestinationMessage([FromQuery] SeenAndGetByDestionationIdCommandRequestModel requestModel)
             => Handle(await _mediator.Send(requestModel));
     }

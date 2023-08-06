@@ -2,7 +2,6 @@
 
 namespace SiteManagement.Business.Services.Commands.UserRole.Insert
 {
-
     public class InsertUserRoleMapper : Profile
     {
         public InsertUserRoleMapper()

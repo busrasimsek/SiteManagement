@@ -23,9 +23,6 @@ namespace SiteManagement.Core.Middleware
             }
             catch (Exception ex)
             {
-                // Log the exception (you can use a logging library of your choice)
-                // Logger.Log(ex);
-
                 // Set the response status code
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 context.Response.ContentType = "application/json";
@@ -40,26 +37,5 @@ namespace SiteManagement.Core.Middleware
                 await context.Response.WriteAsync(jsonResponse);
             }
         }
-        //public async Task InvokeAsync(HttpContext httpContext)
-        //{
-        //    try
-        //    {
-        //        await _next(httpContext);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        await HandleExceptionAsync(httpContext, ex);
-        //    }
-        //}
-
-        //private static Task HandleExceptionAsync(HttpContext httpContext, Exception ex)
-        //{
-
-        //    httpContext.Response.ContentType = "application/json";
-        //    httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-        //    var now = DateTime.UtcNow;
-        //    return httpContext.Response.WriteAsync(BaseResponseModel.BadRequest(ex.Message, httpContext.TraceIdentifier).ToString());
-        //}
     }
-
 }

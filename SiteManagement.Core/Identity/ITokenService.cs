@@ -1,5 +1,4 @@
-﻿using SiteManagement.Core.Response.TokenResponse;
-
+﻿
 namespace SiteManagement.Core.Identity
 {
     public interface ITokenService

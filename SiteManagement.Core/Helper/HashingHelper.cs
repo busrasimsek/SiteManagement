@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Security.Cryptography;
+
 namespace SiteManagement.Core.Helper
 {
     public class HashingHelper

@@ -2,7 +2,6 @@
 
 namespace SiteManagement.Business.Services.Commands.User.Insert
 {
-
     public class InsertUserMapper : Profile
     {
         public InsertUserMapper()

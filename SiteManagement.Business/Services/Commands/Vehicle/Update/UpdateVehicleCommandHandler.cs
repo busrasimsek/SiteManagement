@@ -1,15 +1,9 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using SiteManagement.Business.Services.Commands.Vehicle.Update;
 using SiteManagement.Core.Response;
 using SiteManagement.Data.Core.UnitOfWork.Concrete;
 using SiteManagement.Data.Repository.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SiteManagement.Business.Services.Commands.Vehicle.Update
 {

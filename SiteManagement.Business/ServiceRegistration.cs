@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -14,6 +15,13 @@ namespace SiteManagement.Business
                          .ToArray();
             services.AddMediatR(assembly);
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddFluentValidation(options =>
+            {
+                options.ImplicitlyValidateChildProperties = true;
+                options.ImplicitlyValidateRootCollectionElements = true;
+
+                options.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            });
         }
     }
 }
