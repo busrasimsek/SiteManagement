@@ -4,23 +4,23 @@ using SiteManagement.Core.Response;
 using SiteManagement.Data.Core.UnitOfWork.Concrete;
 using SiteManagement.Data.Repository.Abstract;
 
-namespace SiteManagement.Business.Services.Commands.User.Delete
+namespace SiteManagement.Business.Services.Commands.UserRole.Delete
 {
-    public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommandRequestModel, ResponseItem>
+    public class DeleteUserRoleCommandHandler : IRequestHandler<DeleteUserRoleCommandRequestModel, ResponseItem>
     {
         private readonly IUnitOfWork _unitOfWork;
-        public DeleteUserCommandHandler(IUnitOfWork unitOfWork)
+        public DeleteUserRoleCommandHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<ResponseItem> Handle(DeleteUserCommandRequestModel request, CancellationToken cancellationToken)
+        public async Task<ResponseItem> Handle(DeleteUserRoleCommandRequestModel request, CancellationToken cancellationToken)
         {
             var response = new ResponseItemManager();
-            var data = await _unitOfWork.Repository<IUserRepository>().Query().FirstOrDefaultAsync(x => x.Id == request.Id);
+            var data = await _unitOfWork.Repository<IUserRoleRepository>().Query().FirstOrDefaultAsync(x => x.Id == request.Id);
 
             _unitOfWork.OpenTransaction();
-            _unitOfWork.Repository<IUserRepository>().Delete(data);
+            _unitOfWork.Repository<IUserRoleRepository>().Delete(data);
             if (await _unitOfWork.SaveChangesAsync() < 1)
             {
                 _unitOfWork.Rollback();

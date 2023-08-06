@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SiteManagement.Business.Services.Commands.UserRole.Delete;
 using SiteManagement.Business.Services.Commands.UserRole.Insert;
 using SiteManagement.Business.Services.Commands.UserRole.Update;
 using SiteManagement.Business.Services.Queries.UserRole.GetUserRoleById;
@@ -32,5 +33,10 @@ namespace SiteManagement.Api.Controllers
             requestModel.Id = id;
             return Handle(await _mediator.Send(requestModel)); ;
         }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Manager")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        => Handle(await _mediator.Send(new DeleteUserRoleCommandRequestModel { Id = id }));
     }
 }

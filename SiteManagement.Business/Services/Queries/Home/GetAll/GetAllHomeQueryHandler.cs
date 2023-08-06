@@ -19,7 +19,7 @@ namespace SiteManagement.Business.Services.Queries.Home.GetAll
         public async Task<ResponseItem<List<GetAllHomeQueryResponseModel>>> Handle(GetAllHomeQueryRequestModel request, CancellationToken cancellationToken)
         {
             var response = new ResponseItemManager();
-            var data = await _unitOfWork.Repository<IHomeRepository>().Query().ToListAsync();
+            var data = await _unitOfWork.Repository<IHomeRepository>().Query().Where(x=> x.IsActive && x.IsDeleted == false).ToListAsync();
             return response.Ok(_mapper.Map<List<GetAllHomeQueryResponseModel>>(data));
         }
     }

@@ -19,7 +19,7 @@ namespace SiteManagement.Business.Services.Queries.Vehicle.GetVehicleByUserId
         public async Task<ResponseItem<List<GetVehicleByUserIdQueryResponseModel>>> Handle(GetVehicleByUserIdQueryRequestModel request, CancellationToken cancellationToken)
         {
             var response = new ResponseItemManager();
-            var data = await _unitOfWork.Repository<IVehicleRepository>().Query().Where(x => x.UserId == request.UserId).ToListAsync();
+            var data = await _unitOfWork.Repository<IVehicleRepository>().Query().Where(x => x.UserId == request.UserId &&  x.IsActive && x.IsDeleted == false).ToListAsync();
             return response.Ok(_mapper.Map<List<GetVehicleByUserIdQueryResponseModel>>(data));
         }
     }

@@ -20,7 +20,7 @@ namespace SiteManagement.Business.Services.Queries.Expense.GetByIGetExpenseByHom
         public async Task<ResponseItem<List<GetExpenseByHomeIdQueryResponseModel>>> Handle(GetExpenseByHomeIdQueryRequestModel request, CancellationToken cancellationToken)
         {
             var response = new ResponseItemManager();
-            var data = await _unitOfWork.Repository<IExpenseRepository>().Query().Where(x => x.HomeId == request.HomeId).ToListAsync();
+            var data = await _unitOfWork.Repository<IExpenseRepository>().Query().Where(x => x.HomeId == request.HomeId && x.IsActive && x.IsDeleted == false).ToListAsync();
             return response.Ok(_mapper.Map<List<GetExpenseByHomeIdQueryResponseModel>>(data));
         }
     }

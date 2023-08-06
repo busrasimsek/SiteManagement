@@ -4,7 +4,7 @@ using SiteManagement.Data.Core.Repository.Abstract;
 
 namespace SiteManagement.Data.Core.Repository.Concrete
 {
-    public class Repository<TEntity, TContext> : IRepository<TEntity> where TEntity : class, IBaseEntity where TContext : DbContext 
+    public class Repository<TEntity, TContext> : IRepository<TEntity> where TEntity : class, IBaseEntity where TContext : DbContext
     {
         protected readonly TContext Context;
         protected readonly DbSet<TEntity> DbSet;
@@ -27,16 +27,24 @@ namespace SiteManagement.Data.Core.Repository.Concrete
 
         public virtual TEntity Update(TEntity entity)
         {
+            if (entity is null)
+            {
+                throw new Exception("Not found data");
+            }
             Context.Entry(entity).State = EntityState.Modified;
             return entity;
         }
-        
+
         public virtual IQueryable<TEntity> Query()
         {
             return Context.Set<TEntity>().Where(x => x.IsActive && !x.IsDeleted);
         }
         public virtual TEntity Delete(TEntity entity)
         {
+            if (entity is null)
+            {
+                throw new Exception("Not found data");
+            }
             Context.Entry(entity).State = EntityState.Deleted;
             return entity;
         }

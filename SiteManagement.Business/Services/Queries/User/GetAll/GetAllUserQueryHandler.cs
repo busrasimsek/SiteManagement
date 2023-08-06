@@ -19,7 +19,7 @@ namespace SiteManagement.Business.Services.Queries.User.GetAll
         public async Task<ResponseItem<List<GetAllUserQueryResponseModel>>> Handle(GetAllUserQueryRequestModel request, CancellationToken cancellationToken)
         {
             var response = new ResponseItemManager();
-            var data = await _unitOfWork.Repository<IUserRepository>().Query().ToListAsync();
+            var data = await _unitOfWork.Repository<IUserRepository>().Query().Where(x => x.IsActive && x.IsDeleted == false).ToListAsync();
             return response.Ok(_mapper.Map<List<GetAllUserQueryResponseModel>>(data));
         }
     }

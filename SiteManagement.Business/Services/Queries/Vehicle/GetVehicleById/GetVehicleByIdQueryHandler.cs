@@ -20,7 +20,7 @@ namespace SiteManagement.Business.Services.Queries.Vehicle.GetVehicleById
         public async Task<ResponseItem<GetVehicleByIdQueryResponseModel>> Handle(GetVehicleByIdQueryRequestModel request, CancellationToken cancellationToken)
         {
             var response = new ResponseItemManager();
-            var data = await _unitOfWork.Repository<IVehicleRepository>().Query().FirstOrDefaultAsync(x => x.Id == request.Id);
+            var data = await _unitOfWork.Repository<IVehicleRepository>().Query().Where(x => x.IsActive && x.IsDeleted == false).FirstOrDefaultAsync(x => x.Id == request.Id);
             return response.Ok(_mapper.Map<GetVehicleByIdQueryResponseModel>(data));
         }
     }

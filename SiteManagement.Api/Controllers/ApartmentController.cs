@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SiteManagement.Business.Services.Commands.Apartment.Delete;
 using SiteManagement.Business.Services.Commands.Apartment.Insert;
 using SiteManagement.Business.Services.Commands.Apartment.Update;
 using SiteManagement.Business.Services.Queries.Apartment.GetApartmentById;
@@ -31,5 +32,10 @@ namespace SiteManagement.Api.Controllers
             requestModel.Id = id;
             return Handle(await _mediator.Send(requestModel)); ;
         }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Manager")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+         => Handle(await _mediator.Send(new DeleteApartmentCommandRequestModel { Id = id }));
     }
 }

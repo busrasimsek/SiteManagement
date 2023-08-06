@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SiteManagement.Business.Services.Commands.Resident.Delete;
 using SiteManagement.Business.Services.Commands.Resident.Insert;
 using SiteManagement.Business.Services.Commands.Resident.Update;
 using SiteManagement.Business.Services.Queries.Resident.GetResidentByHomeId;
@@ -39,5 +40,10 @@ namespace SiteManagement.Api.Controllers
             requestModel.Id = id;
             return Handle(await _mediator.Send(requestModel)); ;
         }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Manager")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        => Handle(await _mediator.Send(new DeleteResidentCommandRequestModel { Id = id }));
     }
 }

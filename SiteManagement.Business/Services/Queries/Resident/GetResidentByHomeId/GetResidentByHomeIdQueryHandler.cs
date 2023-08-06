@@ -20,7 +20,7 @@ namespace SiteManagement.Business.Services.Queries.Resident.GetResidentByHomeId
         public async Task<ResponseItem<List<GetResidentByHomeIdQueryResponseModel>>> Handle(GetResidentByHomeIdQueryRequestModel request, CancellationToken cancellationToken)
         {
             var response = new ResponseItemManager();
-            var data = await _unitOfWork.Repository<IResidentRepository>().Query().Where(x => x.HomeId == request.HomeId).ToListAsync();
+            var data = await _unitOfWork.Repository<IResidentRepository>().Query().Where(x => x.HomeId == request.HomeId && x.IsActive && x.IsDeleted == false).ToListAsync();
             return response.Ok(_mapper.Map<List<GetResidentByHomeIdQueryResponseModel>>(data));
         }
     }

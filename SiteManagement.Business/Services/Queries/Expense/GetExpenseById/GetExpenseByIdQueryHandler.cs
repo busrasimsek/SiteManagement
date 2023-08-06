@@ -20,7 +20,7 @@ namespace SiteManagement.Business.Services.Queries.Expense.GetExpenseById
         public  async Task<ResponseItem<GetExpenseByIdQueryResponseModel>> Handle(GetExpenseByIdQueryRequestModel request, CancellationToken cancellationToken)
         {
             var response = new ResponseItemManager();
-            var data = await _unitOfWork.Repository<IExpenseRepository>().Query().FirstOrDefaultAsync(x => x.Id == request.Id);
+            var data = await _unitOfWork.Repository<IExpenseRepository>().Query().Where(x => x.IsActive && x.IsDeleted == false).FirstOrDefaultAsync(x => x.Id == request.Id);
             return response.Ok(_mapper.Map<GetExpenseByIdQueryResponseModel>(data));
         }
     }

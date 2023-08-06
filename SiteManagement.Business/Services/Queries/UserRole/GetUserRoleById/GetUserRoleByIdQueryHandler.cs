@@ -20,7 +20,7 @@ namespace SiteManagement.Business.Services.Queries.UserRole.GetUserRoleById
         public  async Task<ResponseItem<GetUserRoleByIdQueryResponseModel>> Handle(GetUserRoleByIdQueryRequestModel request, CancellationToken cancellationToken)
         {
             var response = new ResponseItemManager();
-            var data = await _unitOfWork.Repository<IUserRoleRepository>().Query().FirstOrDefaultAsync(x => x.Id == request.Id);
+            var data = await _unitOfWork.Repository<IUserRoleRepository>().Query().Where(x => x.IsActive && x.IsDeleted == false).FirstOrDefaultAsync(x => x.Id == request.Id);
             return response.Ok(_mapper.Map<GetUserRoleByIdQueryResponseModel>(data));
         }
     }

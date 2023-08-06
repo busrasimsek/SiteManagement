@@ -17,10 +17,10 @@ namespace SiteManagement.Business.Services.Queries.Apartment.GetApartmentById
             _mapper = mapper;
         }
 
-        public  async Task<ResponseItem<GetApartmentByIdQueryResponseModel>> Handle(GetApartmentByIdQueryRequestModel request, CancellationToken cancellationToken)
+        public async Task<ResponseItem<GetApartmentByIdQueryResponseModel>> Handle(GetApartmentByIdQueryRequestModel request, CancellationToken cancellationToken)
         {
             var response = new ResponseItemManager();
-            var data = await _unitOfWork.Repository<IApartmentRepository>().Query().FirstOrDefaultAsync(x => x.Id == request.Id);
+            var data = await _unitOfWork.Repository<IApartmentRepository>().Query().Where(x => x.IsActive && x.IsDeleted == false).FirstOrDefaultAsync(x => x.Id == request.Id);
             return response.Ok(_mapper.Map<GetApartmentByIdQueryResponseModel>(data));
         }
     }
