@@ -6,9 +6,11 @@ namespace SiteManagement.Business.Services.Commands.Resident.Update
     {
         public UpdateResidentValidation()
         {
-            RuleFor(r => r.Phone).NotEmpty().NotNull();
+            RuleFor(r => r.Phone).NotEmpty().NotNull().Length(10).WithMessage("Telefon numarası 11 karakter olmalıdır");
             RuleFor(r => r.Firstname).NotEmpty().NotNull();
             RuleFor(r => r.HomeId).NotEmpty().NotNull();
+            RuleFor(r => r.Email).NotEmpty().NotNull().EmailAddress();
+
         }
     }
 }
