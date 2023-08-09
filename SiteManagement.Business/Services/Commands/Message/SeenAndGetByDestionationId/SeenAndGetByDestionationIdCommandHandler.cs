@@ -27,12 +27,17 @@ namespace SiteManagement.Business.Services.Commands.Message.SeenAndGetByDestiona
                 x.IsSeen = true;
             });
             _unitOfWork.OpenTransaction();
+            foreach(var message in messages)
+            {
+                _unitOfWork.Repository<IMessageRepository>().Update(message);
+            }
             if (await _unitOfWork.SaveChangesAsync() < 1)
             {
                 _unitOfWork.Rollback();
                 return response.Error<List<SeenAndGetByDestionationIdCommandResponseModel>>(MessageCodesEnum.Error);
             }
             _unitOfWork.Commit();
+
             var query = await (
                     from message in _unitOfWork.Repository<IMessageRepository>().Query()
                     join user in _unitOfWork.Repository<IUserRepository>().Query() on message.SourceUserId equals user.Id
